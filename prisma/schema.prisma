@@ -34,8 +34,6 @@ model BarbershopService {
   price        Decimal    @db.Decimal(10, 2)
   description  String
   imageUrl     String
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
   barbershopId String
   barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
   bookings     Booking[]
