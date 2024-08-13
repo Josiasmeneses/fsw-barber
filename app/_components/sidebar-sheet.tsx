@@ -20,6 +20,7 @@ import { Avatar, AvatarImage } from "./ui/avatar";
 const SidebarSheet = () => {
   const handleLoginWithGoogleClick = () => signIn("google");
   const { data } = useSession();
+  const handleLogoutClick = () => singOut();
 
   return (
     <SheetContent>
@@ -106,7 +107,11 @@ const SidebarSheet = () => {
       </div>
 
       <div className="flex flex-col p-5 gap-2 py-5">
-        <Button variant="ghost" className="justify-start gap-2">
+        <Button
+          variant="ghost"
+          className="justify-start gap-2"
+          onClick={handleLogoutClick}
+        >
           <LogOutIcon size={18} />
           Sair da Conta
         </Button>
@@ -116,3 +121,6 @@ const SidebarSheet = () => {
 };
 
 export default SidebarSheet;
+function singOut() {
+  throw new Error("Function not implemented.");
+}
