@@ -6,21 +6,14 @@ import { quickSearchOptions } from "../_constants/search";
 import Link from "next/link";
 import Image from "next/image";
 // import { Avatar, AvatarImage } from "./ui/avatar";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "./ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 
-import { signIn, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarImage } from "./ui/avatar";
+import SingInDialog from "./sigIn_dialog";
 const SidebarSheet = () => {
-  const handleLoginWithGoogleClick = () => signIn("google");
   const { data } = useSession();
-  const handleLogoutClick = () => singOut();
+  const handleLogoutClick = () => signOut();
 
   return (
     <SheetContent>
@@ -49,24 +42,7 @@ const SidebarSheet = () => {
                 </Button>
               </DialogTrigger>
               <DialogContent className="w-[90%]">
-                <DialogHeader>
-                  <DialogTitle>Faça seu Login na plataforma</DialogTitle>
-                  <DialogDescription>
-                    Conecte-se usando o google
-                  </DialogDescription>
-                </DialogHeader>
-                <Button
-                  variant="outline"
-                  className="gap-2 font-bold"
-                  onClick={handleLoginWithGoogleClick}
-                >
-                  <Image
-                    src="/google.svg"
-                    width={18}
-                    height={18}
-                    alt="Conectar com o Google"
-                  />
-                </Button>
+                <SingInDialog />
               </DialogContent>
             </Dialog>
           </div>
@@ -108,21 +84,20 @@ const SidebarSheet = () => {
         ))}
       </div>
 
-      <div className="flex flex-col p-5 gap-2 py-5">
-        <Button
-          variant="ghost"
-          className="justify-start gap-2"
-          onClick={handleLogoutClick}
-        >
-          <LogOutIcon size={18} />
-          Sair da Conta
-        </Button>
-      </div>
+      {data?.user && (
+        <div className="flex flex-col p-5 gap-2 py-5">
+          <Button
+            variant="ghost"
+            className="justify-start gap-2"
+            onClick={handleLogoutClick}
+          >
+            <LogOutIcon size={18} />
+            Sair da Conta
+          </Button>
+        </div>
+      )}
     </SheetContent>
   );
 };
 
 export default SidebarSheet;
-function singOut() {
-  throw new Error("Function not implemented.");
-}
