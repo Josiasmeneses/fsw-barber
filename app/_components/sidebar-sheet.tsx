@@ -92,9 +92,11 @@ const SidebarSheet = () => {
         {quickSearchOptions.map((option) => (
           <Button
             key={option.title}
-            variant="ghost"
             className="justify-start gap-2"
+            variant="ghost"
+            asChild
           >
+            <Link href={`/barbershops?search=${option.title}`}></Link>
             <Image
               src={option.imageURL}
               alt={option.title}
